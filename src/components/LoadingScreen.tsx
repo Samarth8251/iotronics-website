@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import logoImage from "@/assets/logo.png";
+import { AnimatedCubeBackground } from "./AnimatedBackgrounds";
 
 interface LoadingScreenProps {
   onComplete: () => void;
@@ -37,6 +38,9 @@ const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.8, ease: "easeInOut" }}
         >
+          {/* Animated Cube Background */}
+          <AnimatedCubeBackground isLoading={true} />
+
           {/* Circuit background pattern */}
           <div className="absolute inset-0 overflow-hidden opacity-20">
             <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">

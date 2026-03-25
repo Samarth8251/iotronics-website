@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
 import { ExternalLink, Github, Lightbulb, Cpu, Thermometer, Home, Car, Heart } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { NetworkBackground } from "./AnimatedBackgrounds";
 
 const projects = [
   {
@@ -9,6 +11,8 @@ const projects = [
     tags: ["ESP32", "MQTT", "React", "Node.js"],
     status: "Completed",
     image: "linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)))",
+    externalLink: "https://github.com/iotronics",
+    githubLink: "https://github.com/iotronics/smart-campus",
   },
   {
     title: "Environmental Monitor",
@@ -17,6 +21,8 @@ const projects = [
     tags: ["Arduino", "Sensors", "Firebase", "Flutter"],
     status: "In Progress",
     image: "linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--primary)))",
+    externalLink: "https://github.com/iotronics",
+    githubLink: "https://github.com/iotronics/env-monitor",
   },
   {
     title: "Autonomous Robot",
@@ -25,6 +31,8 @@ const projects = [
     tags: ["Raspberry Pi", "OpenCV", "Python", "Motors"],
     status: "Completed",
     image: "linear-gradient(135deg, hsl(var(--accent)), hsl(var(--secondary)))",
+    externalLink: "https://github.com/iotronics",
+    githubLink: "https://github.com/iotronics/autonomous-robot",
   },
   {
     title: "Health Band",
@@ -33,12 +41,18 @@ const projects = [
     tags: ["ESP32", "BLE", "React Native", "ML"],
     status: "In Progress",
     image: "linear-gradient(135deg, hsl(var(--primary)), hsl(var(--secondary)))",
+    externalLink: "https://github.com/iotronics",
+    githubLink: "https://github.com/iotronics/health-band",
   },
 ];
 
 const ProjectsSection = () => {
+  const navigate = useNavigate();
   return (
     <section id="projects" className="py-32 relative overflow-hidden bg-muted/30">
+      {/* Animated Network Background */}
+      <NetworkBackground />
+
       {/* Circuit pattern overlay */}
       <div className="absolute inset-0 opacity-5">
         <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
@@ -150,6 +164,7 @@ const ProjectsSection = () => {
                     className="w-12 h-12 rounded-xl bg-primary text-primary-foreground flex items-center justify-center"
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
+                    onClick={() => window.open(project.externalLink, "_blank")}
                   >
                     <ExternalLink size={20} />
                   </motion.button>
@@ -157,6 +172,7 @@ const ProjectsSection = () => {
                     className="w-12 h-12 rounded-xl bg-muted text-foreground flex items-center justify-center"
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
+                    onClick={() => window.open(project.githubLink, "_blank")}
                   >
                     <Github size={20} />
                   </motion.button>
@@ -213,6 +229,7 @@ const ProjectsSection = () => {
             className="btn-circuit"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            onClick={() => navigate("/projects")}
           >
             View All Projects
           </motion.button>

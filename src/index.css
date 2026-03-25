@@ -1,8 +1,42 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;700;800&family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap&subset=latin,latin-ext,devanagari,cyrillic,cyrillic-ext,hiragana,katakana');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+#preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+}
+
+#preloader .word-container {
+  min-width: 220px;
+  min-height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#loader-text {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #fff;
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  white-space: nowrap;
+  text-align: center;
+}
+
+#main-content {
+  opacity: 0;
+  transform: scale(1.05);
+}
 
 @layer base {
   :root {
@@ -333,4 +367,54 @@
 ::selection {
   background: hsl(var(--primary) / 0.3);
   color: hsl(var(--foreground));
+}
+
+/* ============================================
+   PRELOADER STYLES - Ultra-Detailed Animation
+   ============================================ */
+
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #000000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.word-container {
+  position: relative;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 200px;
+}
+
+#loader-text {
+  font-family: 'Inter', 'Satoshi', 'Orbitron', sans-serif;
+  font-size: clamp(48px, 8vw, 120px);
+  font-weight: 700;
+  color: #ffffff;
+  text-transform: capitalize;
+  letter-spacing: 2px;
+  opacity: 0;
+  transform: translateY(10px);
+  white-space: nowrap;
+  will-change: opacity, transform;
+}
+
+.main-content {
+  opacity: 0;
+  scale: 1.1;
+  will-change: opacity, scale;
+  width: 100%;
+  height: 100%;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
 }

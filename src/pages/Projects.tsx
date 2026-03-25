@@ -5,6 +5,7 @@ import HangingBulb from "@/components/HangingBulb";
 import PageFooter from "@/components/PageFooter";
 import { FloatingParticles, CircuitBackground } from "@/components/LiveElements";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const projects = [
   {
@@ -14,6 +15,8 @@ const projects = [
     tags: ["ESP32", "MQTT", "React", "Node.js"],
     status: "Completed",
     image: "linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)))",
+    externalLink: "https://github.com/iotronics",
+    githubLink: "https://github.com/iotronics/smart-campus",
   },
   {
     title: "Environmental Monitor",
@@ -22,6 +25,8 @@ const projects = [
     tags: ["Arduino", "Sensors", "Firebase", "Flutter"],
     status: "In Progress",
     image: "linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--primary)))",
+    externalLink: "https://github.com/iotronics",
+    githubLink: "https://github.com/iotronics/env-monitor",
   },
   {
     title: "Autonomous Robot",
@@ -30,6 +35,8 @@ const projects = [
     tags: ["Raspberry Pi", "OpenCV", "Python", "Motors"],
     status: "Completed",
     image: "linear-gradient(135deg, hsl(var(--accent)), hsl(var(--secondary)))",
+    externalLink: "https://github.com/iotronics",
+    githubLink: "https://github.com/iotronics/autonomous-robot",
   },
   {
     title: "Health Band",
@@ -38,6 +45,8 @@ const projects = [
     tags: ["ESP32", "BLE", "React Native", "ML"],
     status: "In Progress",
     image: "linear-gradient(135deg, hsl(var(--primary)), hsl(var(--secondary)))",
+    externalLink: "https://github.com/iotronics",
+    githubLink: "https://github.com/iotronics/health-band",
   },
   {
     title: "Smart Agriculture",
@@ -46,6 +55,8 @@ const projects = [
     tags: ["LoRa", "Arduino", "Solar", "Cloud"],
     status: "Completed",
     image: "linear-gradient(135deg, hsl(var(--glow-green)), hsl(var(--primary)))",
+    externalLink: "https://github.com/iotronics",
+    githubLink: "https://github.com/iotronics/smart-agriculture",
   },
   {
     title: "Home Automation Hub",
@@ -54,11 +65,14 @@ const projects = [
     tags: ["Zigbee", "Matter", "Voice AI", "Security"],
     status: "In Progress",
     image: "linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--accent)))",
+    externalLink: "https://github.com/iotronics",
+    githubLink: "https://github.com/iotronics/home-automation",
   },
 ];
 
 const Projects = () => {
   const [isDarkMode, setIsDarkMode] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (isDarkMode) {
@@ -178,6 +192,7 @@ const Projects = () => {
                         className="w-12 h-12 rounded-xl bg-primary text-primary-foreground flex items-center justify-center"
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.95 }}
+                        onClick={() => window.open(project.externalLink, "_blank")}
                       >
                         <ExternalLink size={20} />
                       </motion.button>
@@ -185,6 +200,7 @@ const Projects = () => {
                         className="w-12 h-12 rounded-xl bg-muted text-foreground flex items-center justify-center"
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.95 }}
+                        onClick={() => window.open(project.githubLink, "_blank")}
                       >
                         <Github size={20} />
                       </motion.button>
@@ -251,6 +267,7 @@ const Projects = () => {
                 className="btn-glow"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                onClick={() => navigate("/#contact")}
               >
                 Submit a Proposal
               </motion.button>

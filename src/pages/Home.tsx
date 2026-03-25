@@ -1,6 +1,4 @@
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import LoadingScreen from "@/components/LoadingScreen";
+import { motion } from "framer-motion";
 import HangingBulb from "@/components/HangingBulb";
 import Navigation from "@/components/Navigation";
 import HeroSection from "@/components/HeroSection";
@@ -8,6 +6,7 @@ import NewsCarousel from "@/components/NewsCarousel";
 import MiniContact from "@/components/MiniContact";
 import PageFooter from "@/components/PageFooter";
 import { FloatingParticles, CircuitBackground } from "@/components/LiveElements";
+import ParticleCanvas from "@/components/3d/ParticleCanvas";
 import { Cpu, Code, Wifi, Lightbulb, Cog, Zap } from "lucide-react";
 
 const clubActivities = [
@@ -44,20 +43,17 @@ const clubActivities = [
 ];
 
 const Home = () => {
-  const [isLoading, setIsLoading] = useState(true);
-
   return (
     <>
-      <AnimatePresence>
-        {isLoading && <LoadingScreen onComplete={() => setIsLoading(false)} />}
-      </AnimatePresence>
-
       <motion.div
         initial={{ opacity: 0 }}
-        animate={{ opacity: isLoading ? 0 : 1 }}
+        animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
         className="min-h-screen"
       >
+        {/* Google Antigravity Particle System - covers entire page */}
+        <ParticleCanvas />
+
         <HangingBulb isOn={true} onToggle={() => {}} />
         <Navigation />
         <FloatingParticles />

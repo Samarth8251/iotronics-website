@@ -1,7 +1,9 @@
 import { motion, useMotionValue, useSpring, animate, useTransform } from "framer-motion";
-import { ChevronDown, Zap, Wifi, Cpu, Radio } from "lucide-react";
+import { ChevronDown, Zap, Wifi, Cpu, Radio, Users } from "lucide-react";
 import logoImage from "@/assets/logo.png";
 import { useEffect, useState } from "react";
+import { FloatingOrbsBackground } from "./AnimatedBackgrounds";
+import ParticleCanvas from "./3d/ParticleCanvas";
 
 interface HeroSectionProps {
   onScrollDown: () => void;
@@ -47,12 +49,29 @@ const HeroSection = ({ onScrollDown }: HeroSectionProps) => {
     delay: Math.random() * 5,
   }));
 
+  const handleExploreProjects = () => {
+    const projectsSection = document.getElementById("projects");
+    if (projectsSection) {
+      projectsSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const handleJoinClub = () => {
+    const contactSection = document.getElementById("contact");
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <section
       id="home"
       className="relative min-h-screen flex flex-col overflow-hidden pt-20"
     >
-      {/* Animated circuit background */}
+      {/* Canvas particle background */}
+      <ParticleCanvas />
+      {/* Animated Floating Orbs Background */}
+      <FloatingOrbsBackground />
       <div className="absolute inset-0">
         {/* Grid pattern */}
         <div
@@ -276,6 +295,7 @@ const HeroSection = ({ onScrollDown }: HeroSectionProps) => {
                 className="btn-glow"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                onClick={handleExploreProjects}
               >
                 Explore Projects
               </motion.button>
@@ -283,6 +303,7 @@ const HeroSection = ({ onScrollDown }: HeroSectionProps) => {
                 className="btn-circuit"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                onClick={handleJoinClub}
               >
                 Join the Club
               </motion.button>
@@ -336,24 +357,5 @@ const HeroSection = ({ onScrollDown }: HeroSectionProps) => {
     </section>
   );
 };
-
-// Add Users icon for stats
-const Users = ({ size }: { size: number }) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-    <circle cx="9" cy="7" r="4" />
-    <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-  </svg>
-);
 
 export default HeroSection;

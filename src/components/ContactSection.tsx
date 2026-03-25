@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Mail, MapPin, Phone, Send, Instagram, Linkedin, Github, Twitter } from "lucide-react";
 import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
 
 const ContactSection = () => {
   const [formData, setFormData] = useState({
@@ -9,12 +10,48 @@ const ContactSection = () => {
     subject: "",
     message: "",
   });
+  const { toast } = useToast();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
-    console.log(formData);
+    
+    // Validate form
+    if (!formData.name || !formData.email || !formData.subject || !formData.message) {
+      toast({
+        title: "Error",
+        description: "Please fill in all fields",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Send email via mailto
+    const mailtoLink = `mailto:iotronics@college.edu?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(
+      `Name: ${formData.name}\nEmail: ${formData.email}\n\n${formData.message}`
+    )}`;
+    window.location.href = mailtoLink;
+
+    // Show success message
+    toast({
+      title: "Success",
+      description: "Your message has been sent!",
+    });
+
+    // Reset form
+    setFormData({
+      name: "",
+      email: "",
+      subject: "",
+      message: "",
+    });
   };
+
+  const socialLinks = [
+    { icon: <Instagram size={20} />, label: "Instagram", url: "https://instagram.com" },
+    { icon: <Linkedin size={20} />, label: "LinkedIn", url: "https://linkedin.com" },
+    { icon: <Github size={20} />, label: "GitHub", url: "https://github.com/iotronics" },
+    { icon: <Twitter size={20} />, label: "Twitter", url: "https://twitter.com" },
+  ];
 
   return (
     <section id="contact" className="py-32 relative overflow-hidden bg-muted/30">
@@ -95,12 +132,7 @@ const ContactSection = () => {
             <div>
               <h4 className="font-orbitron text-lg font-semibold mb-4">Follow Us</h4>
               <div className="flex gap-4">
-                {[
-                  { icon: <Instagram size={20} />, label: "Instagram" },
-                  { icon: <Linkedin size={20} />, label: "LinkedIn" },
-                  { icon: <Github size={20} />, label: "GitHub" },
-                  { icon: <Twitter size={20} />, label: "Twitter" },
-                ].map((social, i) => (
+                {socialLinks.map((social, i) => (
                   <motion.button
                     key={social.label}
                     className="w-12 h-12 rounded-xl bg-card border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary transition-colors"
@@ -110,6 +142,8 @@ const ContactSection = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.3 + i * 0.1 }}
+                    onClick={() => window.open(social.url, "_blank")}
+                    title={social.label}
                   >
                     {social.icon}
                   </motion.button>
